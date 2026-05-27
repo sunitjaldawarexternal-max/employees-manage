@@ -2,7 +2,7 @@ package com.employee.repository;
 
 import com.employee.entity.Employee;
 import jakarta.transaction.Transactional;
-import org.jetbrains.annotations.NotNull;
+import jakarta.validation.constraints.*;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -33,7 +33,7 @@ public interface EmployeeRepository extends JpaRepository<@NotNull Employee, @No
                     e.email = :#{#employee.email},
                     e.department = :#{#employee.department},
                     e.salary = :#{#employee.salary}
-                WHERE e.id = :#{#employee.id}
+                WHERE e.id = :id
             """)
-    void update(int id, @Param("employee") Employee employee);
+    void update(@Param("id") int id, @Param("employee") Employee employee);
 }
