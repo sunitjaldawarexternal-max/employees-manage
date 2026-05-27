@@ -1,14 +1,21 @@
 server:
   port: 8080
 spring:
+  application:
+    name: "employee-manage"
+  config:
+    import: "optional:employee-configserver:http://localhost:8071/"
   datasource:
     url: jdbc:h2:mem:empdb
     driverClassName: org.h2.Driver
-    username: sa
-    password: ''
+#    username: ${DB_USERNAME}
+#    password: ${DB_PASSWORD}
+
   h2:
     console:
-      enabled:true
+      enabled: true
+      settings:
+        web-allow-others: true
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
     hibernate:

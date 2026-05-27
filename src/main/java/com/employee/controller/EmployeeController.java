@@ -5,7 +5,7 @@ import com.employee.dto.EmployeeIdDTO;
 import com.employee.reponse.ApiResponse;
 import com.employee.service.EmployeeService;
 import lombok.AllArgsConstructor;
-import org.jetbrains.annotations.NotNull;
+import jakarta.validation.constraints.*;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

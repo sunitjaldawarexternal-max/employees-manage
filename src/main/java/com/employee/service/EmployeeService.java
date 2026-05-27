@@ -4,7 +4,7 @@ import com.employee.constant.EmployeeConstant;
 import com.employee.dto.EmployeeDTO;
 import com.employee.dto.EmployeeIdDTO;
 import com.employee.entity.Employee;
-import com.employee.exception.NotFoundException;
+import com.employee.exception.EmployeeManagementException;
 import com.employee.mapper.MapToEmployee;
 import com.employee.mapper.MapToEmployeeDTO;
 import com.employee.reponse.ApiResponse;
@@ -53,7 +53,7 @@ public class EmployeeService {
             Employee employee = employeeRepository.findById(id)
                     .orElseThrow(() -> {
                         log.info("Employee Not Found. With Employee ID : {}.", id);
-                        return new NotFoundException(EmployeeConstant.EMPLOYEE_NOT_FOUND);
+                        return new EmployeeManagementException(EmployeeConstant.EMPLOYEE_NOT_FOUND);
                     });
 
             EmployeeDTO employeeDto = mapToEmployeeDTO.mapToEmployeeDTO(employee);
@@ -71,7 +71,7 @@ public class EmployeeService {
             Employee employee = employeeRepository.findByEmail(email)
                     .orElseThrow(() -> {
                         log.info("Employee Not Found. With this email : {}.", email);
-                        return new NotFoundException("Employee Not Found.With this email");
+                        return new EmployeeManagementException("Employee Not Found.With this email");
                     });
 
             EmployeeDTO employeedto = mapToEmployeeDTO.mapToEmployeeDTO(employee);
@@ -88,7 +88,7 @@ public class EmployeeService {
             Employee employee = employeeRepository.findById(id)
                     .orElseThrow(() -> {
                         log.info("Employee Not Found. Employee ID : {}.", id);
-                        return new NotFoundException(EmployeeConstant.EMPLOYEE_NOT_FOUND);
+                        return new EmployeeManagementException(EmployeeConstant.EMPLOYEE_NOT_FOUND);
                     });
 
             mapToEmployee.mapToEmployee(employeeDTO, employee);
@@ -169,7 +169,7 @@ public class EmployeeService {
             Employee employee = employeeRepository.findByEmail(email)
                     .orElseThrow(() -> {
                         log.info("Employee Not Found. With email : {}.", email);
-                        return new NotFoundException(EmployeeConstant.EMPLOYEE_NOT_FOUND);
+                        return new EmployeeManagementException(EmployeeConstant.EMPLOYEE_NOT_FOUND);
                     });
             if (employee == null) {
                 log.warn("Employee with Email: {} Not Found", email);
@@ -189,7 +189,7 @@ public class EmployeeService {
             Employee employee = employeeRepository.findByEmail(email)
                     .orElseThrow(() -> {
                         log.info("Employee Not Found, With Email : {}.", email);
-                        return new NotFoundException(EmployeeConstant.EMPLOYEE_NOT_FOUND);
+                        return new EmployeeManagementException(EmployeeConstant.EMPLOYEE_NOT_FOUND);
                     });
             int id = employee.getId();
             log.info("Employee Id Fetched Successfully: {}", id);
