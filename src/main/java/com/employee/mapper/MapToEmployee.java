@@ -24,7 +24,6 @@ public class MapToEmployee {
     }
 
     public void mapToEmployee(EmployeeDTO employeeDTO, Employee employee) {
-        //stream
         employee.setName(
                 Optional.ofNullable(employeeDTO.getName())
                         .orElse(employee.getName())
