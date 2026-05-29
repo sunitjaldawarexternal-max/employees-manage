@@ -22,8 +22,9 @@ import java.util.UUID;
 @AllArgsConstructor
 @Slf4j
 public class EmployeeService {
-    private EmployeeRepository employeeRepository;
 
+    @Autowired
+    private EmployeeRepository employeeRepository;
     @Autowired
     private MapToEmployee mapToEmployee;
     @Autowired
