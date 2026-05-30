@@ -1,6 +1,7 @@
 package com.employee.service;
 
 import com.employee.dto.EmployeeDTO;
+import com.employee.dto.EmployeeIdDTO;
 import com.employee.entity.Employee;
 import com.employee.mapper.MapToEmployee;
 import com.employee.mapper.MapToEmployeeDTO;
@@ -12,11 +13,12 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -151,25 +153,167 @@ class EmployeeServiceTest {
 
     @Test
     void deleteEmployeeDataById() {
+        Employee employee =new Employee();
+        employee.setSalary(10000);
+        employee.setId(1);
+        employee.setEmployeeId(UUID.randomUUID());
+        employee.setEmail("sunit@gmail.com");
+        employee.setDepartment("IT");
+
+        doNothing().when(employeeRepository).deleteById(1);
+
+        ApiResponse<EmployeeDTO>response= employeeService.deleteEmployeeDataById(1);
+        assertNotNull(response);
+        assertNull(response.getData());
+
+        verify(employeeRepository).deleteById(1);
+
     }
 
     @Test
     void getAllEmployeeData() {
+        Employee employee=new Employee();
+        employee.setSalary(10000);
+        employee.setId(1);
+        employee.setEmployeeId(UUID.randomUUID());
+        employee.setEmail("sunit@gmail.com");
+        employee.setDepartment("IT");
+
+        Employee employee1=new Employee();
+        employee1.setSalary(12000);
+        employee1.setId(2);
+        employee1.setEmployeeId(UUID.randomUUID());
+        employee1.setEmail("sunita@gmail.com");
+        employee1.setDepartment("IT");
+
+        List<Employee> employees = Arrays.asList(employee, employee1);
+
+        EmployeeDTO employeeDTO=new EmployeeDTO();
+        employeeDTO.setDepartment("IT");
+        employeeDTO.setEmail("sunit@gmail.com");
+
+        EmployeeDTO employeeDTO1=new EmployeeDTO();
+        employeeDTO1.setDepartment("IT");
+        employeeDTO1.setEmail("sunita@gmail.com");
+
+        when(employeeRepository.findAll()).thenReturn(employees);
+        when(mapToEmployeeDTO.mapToEmployeeDTO(employee)).thenReturn(employeeDTO);
+        when(mapToEmployeeDTO.mapToEmployeeDTO(employee)).thenReturn(employeeDTO1);
+
+        ApiResponse<List<EmployeeDTO>> response=employeeService.getAllEmployeeData();
+
+        assertNotNull(response);
+        assertNotNull(response.getData());
+        assertEquals(2, response.getData().size());
+        assertEquals("sunita@gmail.com",
+                response.getData().get(0).getEmail());
+
+        verify(employeeRepository, times(1)).findAll();
     }
 
     @Test
     void getAllEmployeeDataWithEmployeeId() {
+        Employee employee=new Employee();
+        employee.setSalary(10000);
+        employee.setId(1);
+        employee.setEmployeeId(UUID.randomUUID());
+        employee.setEmail("sunit@gmail.com");
+        employee.setDepartment("IT");
+
+        Employee employee1=new Employee();
+        employee1.setSalary(12000);
+        employee1.setId(2);
+        employee1.setEmployeeId(UUID.randomUUID());
+        employee1.setEmail("sunita@gmail.com");
+        employee1.setDepartment("IT");
+
+        List<Employee> employees = Arrays.asList(employee, employee1);
+
+        EmployeeIdDTO employeeIdDTO =new EmployeeIdDTO();
+        employeeIdDTO.setDepartment("IT");
+        employeeIdDTO.setEmail("sunit@gmail.com");
+
+        EmployeeIdDTO employeeIdDTO1 =new EmployeeIdDTO();
+        employeeIdDTO1.setDepartment("IT");
+        employeeIdDTO1.setEmail("sunita@gmail.com");
+
+        when(employeeRepository.findAll()).thenReturn(employees);
+        when(mapToEmployeeDTO.mapToEmployeeIdDto(employee)).thenReturn(employeeIdDTO);
+        when(mapToEmployeeDTO.mapToEmployeeIdDto(employee)).thenReturn(employeeIdDTO1);
+
+        ApiResponse<List<EmployeeIdDTO>> response=employeeService.getAllEmployeeDataWithEmployeeId();
+
+        assertNotNull(response);
+        assertNotNull(response.getData());
+        assertEquals(2, response.getData().size());
+        assertEquals("sunita@gmail.com",
+                response.getData().get(0).getEmail());
+
+        verify(employeeRepository, times(1)).findAll();
+
     }
 
     @Test
     void deleteAllEmployeeData() {
+        Employee employee=new Employee();
+        employee.setSalary(10000);
+        employee.setId(1);
+        employee.setEmployeeId(UUID.randomUUID());
+        employee.setEmail("sunit@gmail.com");
+        employee.setDepartment("IT");
+
+        Employee employee1=new Employee();
+        employee1.setSalary(12000);
+        employee1.setId(2);
+        employee1.setEmployeeId(UUID.randomUUID());
+        employee1.setEmail("sunita@gmail.com");
+        employee1.setDepartment("IT");
+
+        doNothing().when(employeeRepository).deleteAll();
+
+        ApiResponse<EmployeeDTO>response = employeeService.deleteAllEmployeeData();
+
+        assertNotNull(response);
+        assertNull(response.getData());
+
+        verify(employeeRepository).deleteAll();
     }
 
     @Test
     void getEmployeeId() {
+        Employee employee=new Employee();
+        employee.setSalary(10000);
+        employee.setId(1);
+        employee.setEmployeeId(UUID.fromString("550e8400-e29b-41d4-a716-446655440000"));
+        employee.setEmail("sunit@gmail.com");
+        employee.setDepartment("IT");
+
+        when(employeeRepository.findByEmail("sunit@gmail.com")).thenReturn(Optional.of(employee));
+
+        ApiResponse<UUID> response = employeeService.getEmployeeId("sunit@gmail.com");
+
+        assertNotNull(response);
+        assertNotNull(response.getData());
+        assertEquals(UUID.fromString("550e8400-e29b-41d4-a716-446655440000"), response.getData());
+
     }
 
     @Test
     void getPrimaryEmployeeId() {
+        Employee employee=new Employee();
+        employee.setSalary(10000);
+        employee.setId(1);
+        employee.setEmployeeId(UUID.randomUUID());
+        employee.setEmail("sunit@gmail.com");
+        employee.setDepartment("IT");
+
+        when(employeeRepository.findByEmail("sunit@gmail.com")).thenReturn(Optional.of(employee));
+
+        ApiResponse<Integer> response = employeeService.getPrimaryEmployeeId("sunit@gmail.com");
+
+        assertNotNull(response);
+        assertNotNull(response.getData());
+        assertEquals(1, response.getData());
+
     }
 }
