@@ -9,4 +9,8 @@ public class ApiResponse<A> {
     private int statusCode;
     private String message;
     private A data;
+
+    public ApiResponse() {
+
+    }
 }
