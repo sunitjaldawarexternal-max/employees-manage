@@ -28,9 +28,8 @@ public class FetchEmployeeId {
                     .retrieve()
                     .body(UUID.class);
         } catch (Exception e) {
-            log.error("Not Able To Retrieve refernce id");
-            //msg, e.message()-> inside expection
-            throw new EmployeeManagementException("MisConfigurationDuringRestClientConnection");
+            log.error("Not Able To Retrieve refernce id : {}",e.getMessage());
+            throw new EmployeeManagementException("Exception occurred while connecting to RestClient");
         }
     }
 }
