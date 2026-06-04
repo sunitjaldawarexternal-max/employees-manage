@@ -67,7 +67,6 @@ class EmployeeServiceTest {
         employee.setName("sunit");
         employee.setDepartment("IT");
         employee.setEmail("sunit@gmail.com");
-        employee.setEmployeeId(UUID.randomUUID());
         employee.setSalary(12000);
 
         EmployeeDTO employeeDTO = new EmployeeDTO();
@@ -94,7 +93,6 @@ class EmployeeServiceTest {
         employee.setName("sunit");
         employee.setDepartment("IT");
         employee.setEmail("sunit@gmail.com");
-        employee.setEmployeeId(UUID.randomUUID());
         employee.setSalary(12000);
 
         EmployeeDTO employeeDTO = new EmployeeDTO();
@@ -156,7 +154,6 @@ class EmployeeServiceTest {
         Employee employee =new Employee();
         employee.setSalary(10000);
         employee.setId(1);
-        employee.setEmployeeId(UUID.randomUUID());
         employee.setEmail("sunit@gmail.com");
         employee.setDepartment("IT");
 
@@ -175,14 +172,12 @@ class EmployeeServiceTest {
         Employee employee=new Employee();
         employee.setSalary(10000);
         employee.setId(1);
-        employee.setEmployeeId(UUID.randomUUID());
         employee.setEmail("sunit@gmail.com");
         employee.setDepartment("IT");
 
         Employee employee1=new Employee();
         employee1.setSalary(12000);
         employee1.setId(2);
-        employee1.setEmployeeId(UUID.randomUUID());
         employee1.setEmail("sunita@gmail.com");
         employee1.setDepartment("IT");
 
@@ -216,14 +211,12 @@ class EmployeeServiceTest {
         Employee employee=new Employee();
         employee.setSalary(10000);
         employee.setId(1);
-        employee.setEmployeeId(UUID.randomUUID());
         employee.setEmail("sunit@gmail.com");
         employee.setDepartment("IT");
 
         Employee employee1=new Employee();
         employee1.setSalary(12000);
         employee1.setId(2);
-        employee1.setEmployeeId(UUID.randomUUID());
         employee1.setEmail("sunita@gmail.com");
         employee1.setDepartment("IT");
 
@@ -258,14 +251,12 @@ class EmployeeServiceTest {
         Employee employee=new Employee();
         employee.setSalary(10000);
         employee.setId(1);
-        employee.setEmployeeId(UUID.randomUUID());
         employee.setEmail("sunit@gmail.com");
         employee.setDepartment("IT");
 
         Employee employee1=new Employee();
         employee1.setSalary(12000);
         employee1.setId(2);
-        employee1.setEmployeeId(UUID.randomUUID());
         employee1.setEmail("sunita@gmail.com");
         employee1.setDepartment("IT");
 
@@ -284,7 +275,7 @@ class EmployeeServiceTest {
         Employee employee=new Employee();
         employee.setSalary(10000);
         employee.setId(1);
-        employee.setEmployeeId(UUID.fromString("550e8400-e29b-41d4-a716-446655440000"));
+//        employee.setEmployeeId(UUID.fromString("550e8400-e29b-41d4-a716-446655440000"));
         employee.setEmail("sunit@gmail.com");
         employee.setDepartment("IT");
 
@@ -303,7 +294,6 @@ class EmployeeServiceTest {
         Employee employee=new Employee();
         employee.setSalary(10000);
         employee.setId(1);
-        employee.setEmployeeId(UUID.randomUUID());
         employee.setEmail("sunit@gmail.com");
         employee.setDepartment("IT");
 

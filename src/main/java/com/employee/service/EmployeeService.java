@@ -29,6 +29,8 @@ public class EmployeeService {
     private MapToEmployee mapToEmployee;
     @Autowired
     private MapToEmployeeDTO mapToEmployeeDTO;
+    @Autowired
+    private FetchEmployeeId fetchEmployeeId;
 
     public ApiResponse<EmployeeDTO> addEmployee(EmployeeDTO employeeDto) {
         try {
@@ -176,7 +178,9 @@ public class EmployeeService {
                 log.warn("Employee with Email: {} Not Found", email);
                 return new ApiResponse<>(EmployeeConstant.STATUS_200, EmployeeConstant.EMPLOYEE_NOT_FOUND, null);
             }
-            UUID employeeId = employee.getEmployeeId();
+
+            UUID employeeId = fetchEmployeeId.fetchEmployeeIdFromReferenceId(employee.getReferenceId());
+
             log.info("Employee Id Fetched Successfully : {}", employeeId);
             return new ApiResponse<>(EmployeeConstant.STATUS_200, EmployeeConstant.MESSAGE_200, employeeId);
         } catch (Exception e) {

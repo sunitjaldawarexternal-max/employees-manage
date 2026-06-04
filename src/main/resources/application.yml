@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: "employee-manage"
+  config:
+    import: "optional:configserver:http://localhost:8079/"
