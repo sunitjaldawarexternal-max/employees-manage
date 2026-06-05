@@ -20,7 +20,7 @@ public class ApiResponse<A> {
 
     @Schema(
             description = "Response message",
-            example = "Employee fetched successfully"
+            example = "Request Process successfully"
     )
     private String message;
 

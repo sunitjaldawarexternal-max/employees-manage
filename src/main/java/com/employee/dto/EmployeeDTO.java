@@ -11,27 +11,27 @@ import lombok.Data;
 public class EmployeeDTO {
     @Schema(
             description = "Employee Name",
-            example = "Ram Sita"
+            example = "Sunit Jaldawar"
 
     )
     private String name;
     @Schema(
             description = "Employee Email",
-            example = "RamSita@gmail.com"
+            example = "SunitJaldawar@gmail.com"
 
     )
     private String email;
 
     @Schema(
             description = "Employee Department",
-            example = "Ram Sita"
+            example = "Information Technology"
 
     )
     private String department;
 
     @Schema(
             description = "Employee Salary",
-            example = "90000"
+            example = "1000"
 
     )
     private Double salary;

@@ -20,7 +20,6 @@ import java.util.UUID;
         name = "CRUD REST APIs for Employee Management",
         description = "APIs to create, retrieve, update, and delete employee records in the Employee Management Service"
 )
-
 @RestController
 @RequestMapping(path = "/api", produces = {MediaType.APPLICATION_JSON_VALUE})
 @AllArgsConstructor
