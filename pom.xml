@@ -61,6 +61,12 @@
             <artifactId>spring-cloud-starter-config</artifactId>
         </dependency>
 
+        <!--Redis -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+
         <!-- H2 DATABASE -->
         <dependency>
             <groupId>com.h2database</groupId>

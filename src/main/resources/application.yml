@@ -3,6 +3,10 @@ spring:
     name: "employee-manage"
   config:
     import: "optional:configserver:http://localhost:8079/"
+  data:
+    redis:
+      host: localhost
+      port: 6379
 
 resilience4j.retry:
   configs:
