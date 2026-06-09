@@ -10,12 +10,12 @@ import org.springframework.cache.annotation.EnableCaching;
 
 @OpenAPIDefinition(
         info = @Info(
-                title="Employee Microservice: REST API documentation",
-                description="Employee, We Can Perform CURD Operations, Create, Update, Read, Delete",
+                title = "Employee Microservice: REST API documentation",
+                description = "Employee, We Can Perform CURD Operations, Create, Update, Read, Delete",
                 version = "v1",
                 contact = @Contact(
-                        name="Sunit",
-                        email="sunit.jaldawar.external@atos.ai"
+                        name = "Sunit",
+                        email = "sunit.jaldawar.external@atos.ai"
                 )
         ),
         servers = {
@@ -28,9 +28,7 @@ import org.springframework.cache.annotation.EnableCaching;
 @SpringBootApplication
 @EnableCaching
 public class EmployeeManageApplication {
-
-	public static void main(String[] args) {
-		SpringApplication.run(EmployeeManageApplication.class, args);
-	}
-
+    public static void main(String[] args) {
+        SpringApplication.run(EmployeeManageApplication.class, args);
+    }
 }

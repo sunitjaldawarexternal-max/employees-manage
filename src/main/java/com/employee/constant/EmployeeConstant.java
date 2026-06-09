@@ -8,7 +8,10 @@ public class EmployeeConstant {
     public static final String EMPLOYEE_DELETED = "Employee deleted successfully";
     public static final String EMPLOYEE_NOT_FOUND = "Employee not found";
     public static final String EMAIL_ALREADY_EXISTS = "Email already exists";
-
+    public static final String REST_CLIENT_EXCEPTION = "Exception occurred while connecting to RestClient";
+    public static final String CACHE_KEY_PREFIX = "employeeIdByReferenceId::";
+    public static final String RETRY = "fetchEmployeeIdFromReferenceId";
+    public static final String RETRY_FALLBACK = "fetchEmployeeIdFromReferenceIdFallBack";
     public static final String MESSAGE_500 = "An Error Occurred, SomeThing Went Wrong";
     public static final String MESSAGE_200 = "Request Process Successfully";
 

@@ -14,8 +14,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class MapToEmployeeDTO {
-    @Autowired
-    private FetchEmployeeId fetchEmployeeId;
+
 
     public EmployeeDTO mapToEmployeeDTO(Employee employee) {
         EmployeeDTO employeeDTO = new EmployeeDTO();
@@ -30,9 +29,6 @@ public class MapToEmployeeDTO {
 
     public EmployeeIdDTO mapToEmployeeIdDto(Employee employee) {
         EmployeeIdDTO employeeIdDTO = new EmployeeIdDTO();
-        employeeIdDTO.setEmployeeId(
-                fetchEmployeeId.fetchEmployeeIdFromReferenceId
-                        (employee.getReferenceId()));
         employeeIdDTO.setReferenceId(employee.getReferenceId());
         employeeIdDTO.setName(employee.getName());
         employeeIdDTO.setEmail(employee.getEmail());

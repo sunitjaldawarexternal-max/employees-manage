@@ -7,6 +7,7 @@ import com.employee.entity.Employee;
 import com.employee.exception.EmployeeManagementException;
 import com.employee.mapper.MapToEmployee;
 import com.employee.mapper.MapToEmployeeDTO;
+import com.employee.processor.EmployeeProcessor;
 import com.employee.reponse.ApiResponse;
 import com.employee.repository.EmployeeRepository;
 import jakarta.transaction.Transactional;
@@ -30,7 +31,8 @@ public class EmployeeService {
     @Autowired
     private MapToEmployeeDTO mapToEmployeeDTO;
     @Autowired
-    private FetchEmployeeId fetchEmployeeId;
+    private EmployeeProcessor employeeProcessor;
+
 
     public ApiResponse<EmployeeDTO> addEmployee(EmployeeDTO employeeDto) {
         try {
@@ -39,12 +41,10 @@ public class EmployeeService {
                 log.info("Employee creation failed. Email already exists");
                 return new ApiResponse<>(EmployeeConstant.STATUS_200, EmployeeConstant.EMAIL_ALREADY_EXISTS, employeeDto);
             }
-
-            Employee employee = mapToEmployee.mapToEmployee(employeeDto);
+            Employee employee = employeeProcessor.maptoEmployeeProcessor(employeeDto);
             employeeRepository.save(employee);
             log.info("Employee created successfully");
             return new ApiResponse<>(EmployeeConstant.STATUS_201, EmployeeConstant.EMPLOYEE_CREATED, employeeDto);
-
         } catch (Exception e) {
             log.error("Error occurred while adding : {}", e.getMessage());
             return new ApiResponse<>(EmployeeConstant.STATUS_500, EmployeeConstant.MESSAGE_500, employeeDto);
@@ -58,7 +58,6 @@ public class EmployeeService {
                         log.info("Employee Not Found. With Employee ID : {}.", id);
                         return new EmployeeManagementException(EmployeeConstant.EMPLOYEE_NOT_FOUND);
                     });
-
             EmployeeDTO employeeDto = mapToEmployeeDTO.mapToEmployeeDTO(employee);
             log.info("Employee details fetched by id {}", id);
             return new ApiResponse<>(EmployeeConstant.STATUS_200, EmployeeConstant.EMPLOYEE_FETCHED, employeeDto);
@@ -76,7 +75,6 @@ public class EmployeeService {
                         log.info("Employee Not Found. With this email : {}.", email);
                         return new EmployeeManagementException("Employee Not Found.With this email");
                     });
-
             EmployeeDTO employeedto = mapToEmployeeDTO.mapToEmployeeDTO(employee);
             log.info("Employee details fetched by email {}", email);
             return new ApiResponse<>(EmployeeConstant.STATUS_200, EmployeeConstant.EMPLOYEE_FETCHED, employeedto);
@@ -146,7 +144,7 @@ public class EmployeeService {
                 log.warn("Their Is No Employee Detail, Complete Empty");
                 return new ApiResponse<>(EmployeeConstant.STATUS_200, EmployeeConstant.EMPLOYEE_NOT_FOUND, null);
             }
-            List<EmployeeIdDTO> employeesIdDto = employees.stream().map(mapToEmployeeDTO::mapToEmployeeIdDto).toList();
+            List<EmployeeIdDTO> employeesIdDto = employees.stream().map(employeeProcessor::EmployeeIdDTOProcessor).toList();
             log.info("Displaying all Employee Details");
             return new ApiResponse<>(EmployeeConstant.STATUS_200, EmployeeConstant.EMPLOYEE_FETCHED, employeesIdDto);
         } catch (Exception e) {
@@ -179,7 +177,7 @@ public class EmployeeService {
                 return new ApiResponse<>(EmployeeConstant.STATUS_200, EmployeeConstant.EMPLOYEE_NOT_FOUND, null);
             }
 
-            UUID employeeId = fetchEmployeeId.fetchEmployeeIdFromReferenceId(employee.getReferenceId());
+            UUID employeeId = employeeProcessor.fetchEmployeeIdProcessor(employee.getReferenceId());
 
             log.info("Employee Id Fetched Successfully : {}", employeeId);
             return new ApiResponse<>(EmployeeConstant.STATUS_200, EmployeeConstant.MESSAGE_200, employeeId);
