@@ -24,17 +24,24 @@ public class FetchEmployeeId {
     //    @Cacheable(value="employeeIdsByReferenceId",key="#referenceID")
     @Retry(name = EmployeeConstant.RETRY, fallbackMethod = EmployeeConstant.RETRY_FALLBACK)
     public UUID fetchEmployeeIdFromReferenceId(String referenceID) {
-        String cacheKey = EmployeeConstant.CACHE_KEY_PREFIX + referenceID;
-        UUID cachedEmployeeId = redisTemplate.opsForValue().get(cacheKey);
-        if (cachedEmployeeId != null) {
-            log.info("EmployeeId retrieved from Cache Memory : {}",cachedEmployeeId);
-            return cachedEmployeeId;
-        } else {
+        try{
+            String cacheKey = EmployeeConstant.CACHE_KEY_PREFIX + referenceID;
+            UUID cachedEmployeeId = redisTemplate.opsForValue().get(cacheKey);
+            if (cachedEmployeeId != null) {
+                log.info("EmployeeId retrieved from Cache Memory : {}",cachedEmployeeId);
+                return cachedEmployeeId;
+            } else {
+                UUID employeeID = fetchEmployeeProcessor.fetchEmployeeId(referenceID);
+                log.info("Adding EmployeeId to Cache : {}",employeeID);
+                redisTemplate.opsForValue().set(cacheKey, employeeID);
+                return employeeID;
+            }
+        }catch (Exception e){
+            log.info("Failed Connection With Redis Cache: {}",e.getMessage());
             UUID employeeID = fetchEmployeeProcessor.fetchEmployeeId(referenceID);
-            log.info("Adding EmployeeId to Cache : {}",employeeID);
-            redisTemplate.opsForValue().set(cacheKey, employeeID);
             return employeeID;
         }
+
     }
 
     public UUID fetchEmployeeIdFromReferenceIdFallBack(String referenceId, Throwable throwable) {

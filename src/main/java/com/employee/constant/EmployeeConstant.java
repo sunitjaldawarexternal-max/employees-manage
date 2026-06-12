@@ -12,7 +12,7 @@ public class EmployeeConstant {
     public static final String CACHE_KEY_PREFIX = "employeeIdByReferenceId::";
     public static final String RETRY = "fetchEmployeeIdFromReferenceId";
     public static final String RETRY_FALLBACK = "fetchEmployeeIdFromReferenceIdFallBack";
-    public static final String MESSAGE_500 = "An Error Occurred, SomeThing Went Wrong";
+    public static final String MESSAGE_500 = "An ErrorLog Occurred, SomeThing Went Wrong";
     public static final String MESSAGE_200 = "Request Process Successfully";
 
     public static final int STATUS_200 = 200;

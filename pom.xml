@@ -81,6 +81,11 @@
             <scope>runtime</scope>
             <optional>true</optional>
         </dependency>
+        <!-- Kafka Template-->
+        <dependency>
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka</artifactId>
+        </dependency>
 
         <!-- LOMBOK -->
         <dependency>

@@ -6,12 +6,14 @@ import com.employee.entity.Employee;
 import com.employee.mapper.MapToEmployee;
 import com.employee.mapper.MapToEmployeeDTO;
 import com.employee.service.FetchEmployeeId;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
 
 @Component
+@AllArgsConstructor
 public class EmployeeProcessor {
 
     @Autowired

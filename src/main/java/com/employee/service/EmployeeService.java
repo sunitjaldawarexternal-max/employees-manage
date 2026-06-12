@@ -5,6 +5,7 @@ import com.employee.dto.EmployeeDTO;
 import com.employee.dto.EmployeeIdDTO;
 import com.employee.entity.Employee;
 import com.employee.exception.EmployeeManagementException;
+import com.employee.producer.EmployeeProducer;
 import com.employee.mapper.MapToEmployee;
 import com.employee.mapper.MapToEmployeeDTO;
 import com.employee.processor.EmployeeProcessor;
@@ -27,11 +28,13 @@ public class EmployeeService {
     @Autowired
     private EmployeeRepository employeeRepository;
     @Autowired
+    private EmployeeProcessor employeeProcessor;
+    @Autowired
     private MapToEmployee mapToEmployee;
     @Autowired
     private MapToEmployeeDTO mapToEmployeeDTO;
     @Autowired
-    private EmployeeProcessor employeeProcessor;
+    private EmployeeProducer employeeProducer;
 
 
     public ApiResponse<EmployeeDTO> addEmployee(EmployeeDTO employeeDto) {
@@ -46,7 +49,16 @@ public class EmployeeService {
             log.info("Employee created successfully");
             return new ApiResponse<>(EmployeeConstant.STATUS_201, EmployeeConstant.EMPLOYEE_CREATED, employeeDto);
         } catch (Exception e) {
-            log.error("Error occurred while adding : {}", e.getMessage());
+            log.error("ErrorLog occurred while adding : {}", e.getMessage());
+            return new ApiResponse<>(EmployeeConstant.STATUS_500, EmployeeConstant.MESSAGE_500, employeeDto);
+        }
+    }
+    public ApiResponse<EmployeeDTO> addEmployeeKafka(EmployeeDTO employeeDto) {
+        try {
+            employeeProducer.producerKafkaEmployeeDTO(employeeDto);
+            return new ApiResponse<>(EmployeeConstant.STATUS_201, EmployeeConstant.EMPLOYEE_CREATED, employeeDto);
+        } catch (Exception e) {
+            log.error("ErrorLog occurred while adding Using Kafka : {}", e.getMessage());
             return new ApiResponse<>(EmployeeConstant.STATUS_500, EmployeeConstant.MESSAGE_500, employeeDto);
         }
     }
@@ -62,7 +74,7 @@ public class EmployeeService {
             log.info("Employee details fetched by id {}", id);
             return new ApiResponse<>(EmployeeConstant.STATUS_200, EmployeeConstant.EMPLOYEE_FETCHED, employeeDto);
         } catch (Exception e) {
-            log.error("Error occurred while fetching by id : {}", e.getMessage());
+            log.error("ErrorLog occurred while fetching by id : {}", e.getMessage());
             return new ApiResponse<>(EmployeeConstant.STATUS_500, EmployeeConstant.MESSAGE_500, null);
 
         }
@@ -79,7 +91,7 @@ public class EmployeeService {
             log.info("Employee details fetched by email {}", email);
             return new ApiResponse<>(EmployeeConstant.STATUS_200, EmployeeConstant.EMPLOYEE_FETCHED, employeedto);
         } catch (Exception e) {
-            log.error("Error occurred while fetching by email : {}", e.getMessage());
+            log.error("ErrorLog occurred while fetching by email : {}", e.getMessage());
             return new ApiResponse<>(EmployeeConstant.STATUS_500, EmployeeConstant.MESSAGE_500, null);
         }
     }
@@ -98,7 +110,7 @@ public class EmployeeService {
             log.info("Employee id:{} Update Successfully", id);
             return new ApiResponse<>(EmployeeConstant.STATUS_200, EmployeeConstant.EMPLOYEE_UPDATED, employeeDTO);
         } catch (Exception e) {
-            log.error("Error occurred while Updating Employee Detail by id : {}", e.getMessage());
+            log.error("ErrorLog occurred while Updating Employee Detail by id : {}", e.getMessage());
             return new ApiResponse<>(EmployeeConstant.STATUS_500, EmployeeConstant.MESSAGE_500, null);
         }
     }
@@ -110,7 +122,7 @@ public class EmployeeService {
             log.info("Employee Deleted Successful by id {}", id);
             return new ApiResponse<>(EmployeeConstant.STATUS_200, EmployeeConstant.EMPLOYEE_DELETED, null);
         } catch (Exception e) {
-            log.error("Error occurred while Deleting by id : {}", e.getMessage());
+            log.error("ErrorLog occurred while Deleting by id : {}", e.getMessage());
             return new ApiResponse<>(EmployeeConstant.STATUS_500, EmployeeConstant.MESSAGE_500, null);
         }
 
@@ -129,7 +141,7 @@ public class EmployeeService {
             return new ApiResponse<>(EmployeeConstant.STATUS_200, EmployeeConstant.EMPLOYEE_FETCHED, employeeDTO);
 
         } catch (Exception e) {
-            log.error("Error occurred while fetching all employee data : {}", e.getMessage());
+            log.error("ErrorLog occurred while fetching all employee data : {}", e.getMessage());
             return new ApiResponse<>(EmployeeConstant.STATUS_500, EmployeeConstant.MESSAGE_500, null);
 
         }
@@ -148,7 +160,7 @@ public class EmployeeService {
             log.info("Displaying all Employee Details");
             return new ApiResponse<>(EmployeeConstant.STATUS_200, EmployeeConstant.EMPLOYEE_FETCHED, employeesIdDto);
         } catch (Exception e) {
-            log.error("Error occurred while fetching all employees data : {}", e.getMessage());
+            log.error("ErrorLog occurred while fetching all employees data : {}", e.getMessage());
             return new ApiResponse<>(EmployeeConstant.STATUS_500, EmployeeConstant.MESSAGE_500, null);
         }
     }
@@ -160,7 +172,7 @@ public class EmployeeService {
             log.info("Deleted All Employees Details");
             return new ApiResponse<>(EmployeeConstant.STATUS_200, EmployeeConstant.EMPLOYEE_DELETED, null);
         } catch (Exception e) {
-            log.error("Error Occurred While Deleting Whole Table : {} ", e.getMessage());
+            log.error("ErrorLog Occurred While Deleting Whole Table : {} ", e.getMessage());
             return new ApiResponse<>(EmployeeConstant.STATUS_500, EmployeeConstant.MESSAGE_500, null);
         }
     }
@@ -182,7 +194,7 @@ public class EmployeeService {
             log.info("Employee Id Fetched Successfully : {}", employeeId);
             return new ApiResponse<>(EmployeeConstant.STATUS_200, EmployeeConstant.MESSAGE_200, employeeId);
         } catch (Exception e) {
-            log.error("Error Occurred While Knowing Employee Id : {} ", e.getMessage());
+            log.error("ErrorLog Occurred While Knowing Employee Id : {} ", e.getMessage());
             return new ApiResponse<>(EmployeeConstant.STATUS_500, EmployeeConstant.MESSAGE_500, null);
         }
     }
@@ -199,7 +211,7 @@ public class EmployeeService {
             return new ApiResponse<>(EmployeeConstant.STATUS_200, EmployeeConstant.MESSAGE_200, id);
 
         } catch (Exception e) {
-            log.error("Error Occurred While Getting Id : {} ", e.getMessage());
+            log.error("ErrorLog Occurred While Getting Id : {} ", e.getMessage());
             return new ApiResponse<>(EmployeeConstant.STATUS_500, EmployeeConstant.MESSAGE_500, null);
         }
     }

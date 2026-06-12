@@ -41,7 +41,7 @@ public class EmployeeController {
             ),
             @io.swagger.v3.oas.annotations.responses.ApiResponse(
                     responseCode = "500",
-                    description = "Internal Server Error"
+                    description = "Internal Server ErrorLog"
             )
     })
     @PostMapping("/employees")
@@ -51,6 +51,15 @@ public class EmployeeController {
                 .status(response.getStatusCode())
                 .body(response);
     }
+
+    @PostMapping("/employees/kafka")
+    ResponseEntity<@NotNull ApiResponse<EmployeeDTO>> addNewEmployeeDetailsKafka(@RequestBody EmployeeDTO employeeDto) {
+        ApiResponse<EmployeeDTO> response = employeeService.addEmployeeKafka(employeeDto);
+        return ResponseEntity
+                .status(response.getStatusCode())
+                .body(response);
+    }
+
 
     @Operation(
             summary = "Get Employee By ID",
@@ -63,7 +72,7 @@ public class EmployeeController {
             ),
             @io.swagger.v3.oas.annotations.responses.ApiResponse(
                     responseCode = "500",
-                    description = "Internal Server Error"
+                    description = "Internal Server ErrorLog"
             )
     })
     @GetMapping("/employees/{id}")
@@ -85,7 +94,7 @@ public class EmployeeController {
             ),
             @io.swagger.v3.oas.annotations.responses.ApiResponse(
                     responseCode = "500",
-                    description = "Internal Server Error"
+                    description = "Internal Server ErrorLog"
             )
     })
     @GetMapping("/employees/email")
@@ -107,7 +116,7 @@ public class EmployeeController {
             ),
             @io.swagger.v3.oas.annotations.responses.ApiResponse(
                     responseCode = "500",
-                    description = "Internal Server Error"
+                    description = "Internal Server ErrorLog"
             )
     })
     @PutMapping("/employees")
@@ -129,7 +138,7 @@ public class EmployeeController {
             ),
             @io.swagger.v3.oas.annotations.responses.ApiResponse(
                     responseCode = "500",
-                    description = "Internal Server Error"
+                    description = "Internal Server ErrorLog"
             )
     })
     @DeleteMapping("/employees/{id}")
@@ -151,7 +160,7 @@ public class EmployeeController {
             ),
             @io.swagger.v3.oas.annotations.responses.ApiResponse(
                     responseCode = "500",
-                    description = "Internal Server Error"
+                    description = "Internal Server ErrorLog"
             )
     })
     @GetMapping("/employees")
@@ -173,7 +182,7 @@ public class EmployeeController {
             ),
             @io.swagger.v3.oas.annotations.responses.ApiResponse(
                     responseCode = "500",
-                    description = "Internal Server Error"
+                    description = "Internal Server ErrorLog"
             )
     })
     @GetMapping("/employees/all")
@@ -195,7 +204,7 @@ public class EmployeeController {
             ),
             @io.swagger.v3.oas.annotations.responses.ApiResponse(
                     responseCode = "500",
-                    description = "Internal Server Error"
+                    description = "Internal Server ErrorLog"
             )
     })
     @DeleteMapping("/employees/delete/all")
@@ -217,7 +226,7 @@ public class EmployeeController {
             ),
             @io.swagger.v3.oas.annotations.responses.ApiResponse(
                     responseCode = "500",
-                    description = "Internal Server Error"
+                    description = "Internal Server ErrorLog"
             )
     })
     @GetMapping("/get/employeeid")
@@ -239,7 +248,7 @@ public class EmployeeController {
             ),
             @io.swagger.v3.oas.annotations.responses.ApiResponse(
                     responseCode = "500",
-                    description = "Internal Server Error"
+                    description = "Internal Server ErrorLog"
             )
     })
     @GetMapping("/get/id")
